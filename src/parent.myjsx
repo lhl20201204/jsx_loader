@@ -1,0 +1,39 @@
+const MyReact = require("../myReact/react")
+import Child from "./child.myjsx"
+export default class Parent extends MyReact.MyComponment {
+  state = { count1: 1, count2: 2, spanc: 0, arr: [1, 2, 3, 4, 5] }
+  change = () => {
+    const { count1 } = this.state
+    console.log('点击了chang1')
+    this.setState({ count1: count1 + 1 })
+  }
+  change2 = () => {
+    const { spanc } = this.state
+    this.setState({ spanc: spanc + 2 })
+  }
+
+  alertV = (v) => {
+    return function (e) {
+      alert(v)
+    }
+  }
+
+  render () {
+    const { count1 } = this.state
+    return (<div >
+      <button onClick={() => { this.setState({ count1: count1 + 1 }) }}>'传给子组件'</button>
+      <div>"表达式"{
+        this.state.arr.map((v) => <button onClick={this.alertV(v)}>{v + 100}</button>
+        )
+      }</div>
+      <div>
+        <Child name="dfdfd" count1={count1}> </Child>
+        <Child name="fewert" count1={count1}> </Child>
+        {this.state.count2}
+        <span className="grand" onClick={this.change2}>
+          '我是span标签里的'{this.state.spanc}'个'
+        </span>
+      </div>
+    </div>)
+  }
+}

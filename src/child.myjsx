@@ -1,0 +1,31 @@
+const MyReact = require("../myReact/react")
+export default class Child extends MyReact.MyComponment {
+  state = { count1: 11, count2: 22, spanc: 100 }
+  change = () => {
+    const { count1 } = this.state
+    this.setState({ count1: count1 + 1 })
+  }
+  change2 = () => {
+    const { spanc } = this.state
+    this.setState({ spanc: spanc + 2 })
+  }
+  render () {
+    const { count1 } = this.state
+    return (<div className="parent" >
+      "我是子组件"{this.props.name}
+      <button onClick={this.change}>"点我"</button>
+      "父亲传过来的"{this.props.count1}
+      <div className="child">{this.state.count1}</div>
+      <div>{this.state.count2}</div>
+      <div>
+        {count1}
+      </div>
+      <div>
+        {this.state.count2}
+        <span className="grand" onClick={this.change2}>
+          '我是子span标签里的第'{this.state.spanc * 2}'个'
+        </span>
+      </div>
+    </div>)
+  }
+}
