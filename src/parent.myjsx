@@ -22,7 +22,7 @@ export default class Parent extends MyReact.MyComponment {
 
   render () {
     const { count1 } = this.state
-    return (<div >
+    return (<div className="parent">
       <button onClick={this.change}>'传给子组件'</button>
       <div>"表达式"{
         this.state.arr.map((v) => <div ><button onClick={
@@ -32,7 +32,7 @@ export default class Parent extends MyReact.MyComponment {
         )
       }</div>
       <div>
-        <span className="grand" onClick={this.change2}>
+        <span onClick={this.change2}>
           '我是span标签里的'{this.state.spanc}'个'
         </span>
         <Grand count1={count1}> </Grand>

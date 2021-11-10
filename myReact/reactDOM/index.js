@@ -1,5 +1,4 @@
 module.exports = class MyReactDOM {
-
   static render = function (Ctor, el) {
     if (Ctor.el) {//直接传vdom
       console.log(Ctor)

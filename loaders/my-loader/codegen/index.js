@@ -49,7 +49,7 @@ const codegen = function (ast, templateToCode) {
 
     }
   }
-  return 'MyReact.createElement(' + getTag(ast.tag) + ', ' + getProps(ast.props, ast, templateToCode) + ', [' + arr.join(',') + '],this.options)'
+  return 'MyReact.createElement(' + getTag(ast.tag) + ', ' + getProps(ast.props, ast, templateToCode) + ', [' + arr.join(',') + '],this)'
 
 }
 module.exports = codegen

@@ -13,12 +13,11 @@ export default class Child extends MyReact.MyComponment {
   }
   render () {
     const { count1 } = this.state
-    return (<div className="parent" >
+    return (<div className="child" >
       "我是子组件"{this.props.name}
       <button onClick={this.change}>"点我"</button>
       "父亲传过来的"{this.props.count1}
-      <div className="child">{this.state.count1}</div>
-      <div>{this.state.count2}</div>
+      <div >{this.state.count1}</div>
       <div>
         {count1}
       </div>

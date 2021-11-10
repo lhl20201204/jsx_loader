@@ -1,9 +1,10 @@
-
+let id = 0
 class MyComponment {
   constructor(config) {
     this.config = config
     this.props = config ? config.props || {} : {}
     this.state = config ? config.state || {} : {}
+    this.id =id++
   }
   setState = function (obj) {
     for (var key in obj) {
@@ -12,9 +13,9 @@ class MyComponment {
       }
     }
     let old = this.vdom.el
-    this.options.updataing = true
+    this.rendering = true
     this.vdom = this.render()
-    this.options.updataing = false
+    this.rendering = false
     //有待diff,这里直接替换
     old.parentNode.insertBefore(this.vdom.el, old)
     old.parentNode.removeChild(old)
@@ -31,7 +32,7 @@ class MyComponment {
     return s
   }
   //相比之前加了个配置项，可作为配置处理
-  options = {}
+  isMounted = false
 }
 
 MyComponment.prototype = {

@@ -1,12 +1,16 @@
 const MyReact = require("../myReact/react")
 export default class Grand extends MyReact.MyComponment {
-  state = { count1: 0 }
+  state = { count1: 0,inputText:''}
   change3 = () => {
+    console.log(this)
     this.setState({ count1: this.state.count1 + 1 })
+  }
+  bindInput =(e)=>{
+    console.log(e.target.value)
   }
   render () {
     return (
-      <div><button onClick={this.change3}>{this.state.count1}</button> <button>
+      <div className="grand"><button onClick={this.change3}>{this.state.count1}</button> <input type="text" onInput={this.bindInput}> </input><button>
         {this.props.count1}
       </button> </div>
 

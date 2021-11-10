@@ -2,10 +2,11 @@
 const MyComponment = require("./MyComponment")
 
 class VDOM {
-  constructor(el, props, cc) {
+  constructor(el, props, cc,context) {
     this.el = el
     this.props = props
     this.children = cc
+    this.context =context
   }
 }
 
@@ -15,7 +16,7 @@ module.exports = class MyReact {
   static MyComponment = MyComponment
   static cache = new Map()
   static id = 0
-  static createElement = function (tag, props, children, options) {
+  static createElement = function (tag, props, children, context) {
     props = props || {}
     children = children || []
     if (typeof tag !== 'string') {
@@ -23,24 +24,23 @@ module.exports = class MyReact {
       // if (props && props.id && !MyReact.cache.has(props.id)) {
       //   MyReact.cache.set(props.id, new tag({ props }))
       // }
-      let vm
-      if (options && options.childComps && options.updataing) {
-        vm = options.childComps.shift()
-      } else {
-        vm = new tag({ props })
-      }
-      vm.props = props
-      // console.log(vm.props)
-      console.log(tag)
-      // const vm = new tag({ props })
-      let vdom = vm.render()
-      vm.options.render = true
-      if (options) {
-        if (!options.childComps) {
-          options.childComps = []
+        
+      let vm =context&&context.isMounted?context.children.shift():new tag({props})
+      if (context) {
+        if(!context.children){
+          context.children=[]
         }
-        options.childComps.push(vm)
+        context.children.push(vm)
       }
+      vm.parent = context||{}
+      vm.props = props
+      // vm.state = oldState||vm.state
+
+      vm.rendering = true
+      let vdom = vm.render()
+      vm.isMounted =true
+      vm.rendering =false
+      
       vm.vdom = vdom
       return vm.vdom
     }
@@ -50,7 +50,10 @@ module.exports = class MyReact {
         el.setAttribute('class', props[x])
       } else if (x === 'onClick') {
         el.addEventListener('click', props[x])
-      } else {
+      }else if (x === 'onInput') {
+        el.oninput= props[x]
+      }
+      else {
 
         el.setAttribute(x, props[x])
       }
@@ -74,6 +77,6 @@ module.exports = class MyReact {
         }
       }
     }
-    return new VDOM(el, props, cc)
+    return new VDOM(el, props, cc,context||null)
   }
 }
