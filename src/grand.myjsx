@@ -1,0 +1,15 @@
+const MyReact = require("../myReact/react")
+export default class Grand extends MyReact.MyComponment {
+  state = { count1: 0 }
+  change3 = () => {
+    this.setState({ count1: this.state.count1 + 1 })
+  }
+  render () {
+    return (
+      <div><button onClick={this.change3}>{this.state.count1}</button> <button>
+        {this.props.count1}
+      </button> </div>
+
+    )
+  }
+}

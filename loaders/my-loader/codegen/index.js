@@ -11,9 +11,9 @@ function getProps (obj, ast, templateToCode) {
       ret += key + ":this._s(" + obj[key] + "),"
     }
   }
-  if (ast.tag && isHTMLTag.indexOf(ast.tag) === -1) {
-    ret += 'id:' + MyReact.id++
-  }
+  // if (ast.tag && isHTMLTag.indexOf(ast.tag) === -1) {
+  //   ret += 'id:' + MyReact.id++
+  // }
   return ret + "}"
 }
 //这个去搜html标签有哪些即可
@@ -49,7 +49,7 @@ const codegen = function (ast, templateToCode) {
 
     }
   }
-  return 'MyReact.createElement(' + getTag(ast.tag) + ', ' + getProps(ast.props, ast, templateToCode) + ', [' + arr.join(',') + '])'
+  return 'MyReact.createElement(' + getTag(ast.tag) + ', ' + getProps(ast.props, ast, templateToCode) + ', [' + arr.join(',') + '],this.options)'
 
 }
 module.exports = codegen

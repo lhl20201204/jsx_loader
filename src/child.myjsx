@@ -1,8 +1,10 @@
 const MyReact = require("../myReact/react")
+import Grand from "./grand.myjsx"
 export default class Child extends MyReact.MyComponment {
-  state = { count1: 11, count2: 22, spanc: 100 }
+  state = { count1: 11, count2: 22, arr: [1, 2, 3] }
   change = () => {
     const { count1 } = this.state
+    console.log("dianji")
     this.setState({ count1: count1 + 1 })
   }
   change2 = () => {
@@ -21,10 +23,11 @@ export default class Child extends MyReact.MyComponment {
         {count1}
       </div>
       <div>
-        {this.state.count2}
-        <span className="grand" onClick={this.change2}>
-          '我是子span标签里的第'{this.state.spanc * 2}'个'
-        </span>
+        {
+          this.state.arr.map((v, i) =>
+            <Grand count1={this.props.count1 + i}> </Grand>
+          )
+        }
       </div>
     </div>)
   }

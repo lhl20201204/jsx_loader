@@ -1,10 +1,10 @@
 const MyReact = require("../myReact/react")
 import Child from "./child.myjsx"
+import Grand from "./grand.myjsx"
 export default class Parent extends MyReact.MyComponment {
-  state = { count1: 1, count2: 2, spanc: 0, arr: [1, 2, 3, 4, 5] }
+  state = { count1: 1, count2: 2, spanc: 0, arr: [1, 2] }
   change = () => {
     const { count1 } = this.state
-    console.log('点击了chang1')
     this.setState({ count1: count1 + 1 })
   }
   change2 = () => {
@@ -18,21 +18,24 @@ export default class Parent extends MyReact.MyComponment {
     }
   }
 
+
+
   render () {
     const { count1 } = this.state
     return (<div >
-      <button onClick={() => { this.setState({ count1: count1 + 1 }) }}>'传给子组件'</button>
+      <button onClick={this.change}>'传给子组件'</button>
       <div>"表达式"{
-        this.state.arr.map((v) => <button onClick={this.alertV(v)}>{v + 100}</button>
+        this.state.arr.map((v) => <div ><button onClick={
+          this.alertV(v)
+        }>{v + 100}</button>
+          <Child name={v} count1={count1}></Child></div>
         )
       }</div>
       <div>
-        <Child name="dfdfd" count1={count1}> </Child>
-        <Child name="fewert" count1={count1}> </Child>
-        {this.state.count2}
         <span className="grand" onClick={this.change2}>
           '我是span标签里的'{this.state.spanc}'个'
         </span>
+        <Grand count1={count1}> </Grand>
       </div>
     </div>)
   }
